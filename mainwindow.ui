@@ -121,7 +121,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>feedback (2).png</pixmap>
+      <pixmap>feedback.png</pixmap>
      </property>
     </widget>
     <widget class="QLabel" name="fnameLabel">
@@ -392,7 +392,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>client (1).png</pixmap>
+     <pixmap>client.png</pixmap>
     </property>
    </widget>
    <widget class="QListView" name="listView">
@@ -439,7 +439,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>pdf-file (1).png</pixmap>
+     <pixmap>pdf-file.png</pixmap>
     </property>
    </widget>
    <widget class="QLineEdit" name="searchEdit">

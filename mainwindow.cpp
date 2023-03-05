@@ -9,9 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QPixmap icon("C:/Users/Skander/Documents/Client1/feedback (2).png");
-    QPixmap client("C:/Users/Skander/Documents/Client1/client (1).png");
-    QPixmap pdf("C:/Users/Skander/Documents/Client1/pdf-file (1).png");
+    QPixmap icon("C:/Users/Skander/Documents/Client1/feedback.png");
+    QPixmap client("C:/Users/Skander/Documents/Client1/client.png");
+    QPixmap pdf("C:/Users/Skander/Documents/Client1/pdf-file.png");
     QIcon search("C:/Users/Skander/Documents/Client1/search-interface-symbol.png");
     QPixmap sort("C:/Users/Skander/Documents/Client1/sort.png");
     ui->icon->setPixmap(icon);

@@ -23,10 +23,10 @@
    <widget class="QGroupBox" name="Form">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>90</y>
-      <width>321</width>
-      <height>321</height>
+      <width>311</width>
+      <height>331</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -40,46 +40,6 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="Line" name="line">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>47</y>
-       <width>291</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">Line
-{
-	background-color: rgb(255, 255, 255);
-}</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="Line" name="line_2">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>260</y>
-       <width>291</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">Line
-{
-	background-color: rgb(255, 255, 255);
-	
-	border-top-color: rgb(255, 255, 255);
-}</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
     <widget class="QLabel" name="FormLabel">
      <property name="geometry">
       <rect>
@@ -305,7 +265,7 @@
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>280</y>
+       <y>290</y>
        <width>93</width>
        <height>28</height>
       </rect>
@@ -343,7 +303,7 @@
      <property name="geometry">
       <rect>
        <x>170</x>
-       <y>280</y>
+       <y>290</y>
        <width>93</width>
        <height>28</height>
       </rect>
@@ -362,6 +322,46 @@
       <string>Edit</string>
      </property>
     </widget>
+    <widget class="QLabel" name="creditLabel">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>200</y>
+       <width>56</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	background-color: rgb(255, 255, 255);
+	color: rgb(106, 168, 79);
+	font: 10pt &quot;Berlin Sans FB&quot;;
+	text-align: right;
+}</string>
+     </property>
+     <property name="text">
+      <string>Credit</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="creditEdit">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>220</y>
+       <width>113</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit
+{
+	background-color: rgb(255, 255, 255);
+	border-color: rgb(106, 168, 79);
+}
+</string>
+     </property>
+    </widget>
     <zorder>FormLabel</zorder>
     <zorder>fnameLabel</zorder>
     <zorder>lnameLabel</zorder>
@@ -375,9 +375,9 @@
     <zorder>addButton</zorder>
     <zorder>icon</zorder>
     <zorder>nicEdit</zorder>
-    <zorder>line</zorder>
-    <zorder>line_2</zorder>
     <zorder>EditButton</zorder>
+    <zorder>creditLabel</zorder>
+    <zorder>creditEdit</zorder>
    </widget>
    <widget class="QLabel" name="client">
     <property name="geometry">
@@ -395,20 +395,10 @@
      <pixmap>client.png</pixmap>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>140</y>
-      <width>611</width>
-      <height>231</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="listClients">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>410</x>
       <y>96</y>
       <width>141</width>
       <height>20</height>
@@ -429,7 +419,7 @@
    <widget class="QLabel" name="pdf">
     <property name="geometry">
      <rect>
-      <x>580</x>
+      <x>560</x>
       <y>90</y>
       <width>21</width>
       <height>31</height>
@@ -490,8 +480,8 @@
    <widget class="QLabel" name="Sortby">
     <property name="geometry">
      <rect>
-      <x>455</x>
-      <y>392</y>
+      <x>440</x>
+      <y>380</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -508,11 +498,11 @@
      <string>Sort by</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="sortCombo">
     <property name="geometry">
      <rect>
-      <x>524</x>
-      <y>392</y>
+      <x>510</x>
+      <y>380</y>
       <width>171</width>
       <height>21</height>
      </rect>
@@ -542,11 +532,11 @@
      </property>
     </item>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="sortButton">
     <property name="geometry">
      <rect>
-      <x>707</x>
-      <y>392</y>
+      <x>690</x>
+      <y>380</y>
       <width>51</width>
       <height>21</height>
      </rect>
@@ -568,8 +558,8 @@
    <widget class="QLabel" name="sortLabel">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>392</y>
+      <x>410</x>
+      <y>380</y>
       <width>21</width>
       <height>21</height>
      </rect>
@@ -581,17 +571,113 @@
      <pixmap>sort.png</pixmap>
     </property>
    </widget>
-   <zorder>Form</zorder>
-   <zorder>listView</zorder>
-   <zorder>client</zorder>
-   <zorder>listClients</zorder>
-   <zorder>pdf</zorder>
-   <zorder>searchEdit</zorder>
-   <zorder>searchButton</zorder>
-   <zorder>Sortby</zorder>
-   <zorder>comboBox</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>sortLabel</zorder>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>140</y>
+      <width>631</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTableView
+{
+	
+	gridline-color: rgb(255, 255, 255);
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trashcan">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>375</y>
+      <width>30</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>trash-can.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="deleteEdit">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>380</y>
+      <width>110</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit
+{
+	background-color: rgb(255, 255, 255);
+	font: 9pt &quot;Berlin Sans FB&quot;;
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteButton">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>380</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	
+	background-color: rgb(167, 82, 97);
+	color: rgb(255, 255, 255);
+	font: 10pt &quot;Berlin Sans FB&quot;;
+	border-radius: 10px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>100</y>
+      <width>171</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox
+{
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	font: 9pt &quot;Berlin Sans FB&quot;;
+
+}</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>First Name</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Last Name</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>NIC</string>
+     </property>
+    </item>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

@@ -34,7 +34,7 @@ public:
      bool addEmp();
      QSqlQueryModel *view();
      bool deleteEmp(QString ID);
-      bool modify(QString IDd,QString maill,QString fnamee,int phone,QString lnamee,float salar,QString idsta,QString r);
+     bool modify();
      QSqlQueryModel * sort_name();
      QSqlQueryModel * sort_ID();
      QSqlQueryModel * sort_Role();

@@ -41,6 +41,8 @@ void Login::on_login_clicked()
                  Employee emp;
                  EmployeeManagement d;
                  d.exec();
+                 ui->lineEditoldname->setText(" ");
+                 ui->lineEditoldpwd->setText(" ");
 
                }
             else

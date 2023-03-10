@@ -83,8 +83,8 @@ border-bottom:1px solid #717072;
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>130</y>
+      <x>460</x>
+      <y>140</y>
       <width>391</width>
       <height>441</height>
      </rect>
@@ -101,8 +101,8 @@ border-bottom:1px solid #717072;
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>110</y>
+       <x>130</x>
+       <y>100</y>
        <width>151</width>
        <height>51</height>
       </rect>
@@ -114,7 +114,7 @@ border-bottom:1px solid #717072;
       <string>LOGIN HERE</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="login">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -127,11 +127,11 @@ border-bottom:1px solid #717072;
       <string>LogIn</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="lineEditoldname">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>200</y>
+       <x>110</x>
+       <y>170</y>
        <width>201</width>
        <height>31</height>
       </rect>
@@ -140,17 +140,43 @@ border-bottom:1px solid #717072;
       <string>Name</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="lineEditoldpwd">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>260</y>
+       <x>110</x>
+       <y>240</y>
        <width>201</width>
        <height>41</height>
       </rect>
      </property>
      <property name="placeholderText">
       <string>password</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>300</y>
+       <width>93</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: none;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../Downloads/synchronize.png</normaloff>../../../Downloads/synchronize.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
      </property>
     </widget>
    </widget>

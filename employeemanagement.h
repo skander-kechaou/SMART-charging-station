@@ -19,10 +19,21 @@ public:
 private slots:
 
 
-    void on_pushButton_clicked();
+    //void on_pushButton_clicked();
+
+    void on_add_clicked();
+    void on_buttonDelete_clicked();
+    void on_pushButton12_clicked();
+    void on_sort_clicked();
+    void on_search_clicked();
+    void on_PDF_clicked();
+    void on_tableView_clicked(const QModelIndex &index);
+
+    void on_edit_clicked();
 
 private:
     Ui::EmployeeManagement *ui;
+    Employee e;
 };
 
 #endif // EMPLOYEEMANAGEMENT_H

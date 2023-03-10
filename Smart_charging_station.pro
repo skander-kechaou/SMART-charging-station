@@ -1,4 +1,9 @@
-QT       += sql
+QT       += sql \
+            multimedia \
+            multimediawidgets \
+            printsupport
+
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Account.cpp \
     connection.cpp \
     employee.cpp \
     employeemanagement.cpp \
@@ -23,6 +29,7 @@ SOURCES += \
     login.cpp
 
 HEADERS += \
+    Account.h \
     connection.h \
     employee.h \
     employeemanagement.h \
@@ -30,9 +37,13 @@ HEADERS += \
 
 FORMS += \
     employeemanagement.ui \
-    login.ui
+    login.ui \
+    reset.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc

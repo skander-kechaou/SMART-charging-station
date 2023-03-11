@@ -68,7 +68,7 @@ bool client::Delete(QString NIC)
 bool client::update()
 {
     QSqlQuery query;
-        query.prepare ("update client SET NIC = :NIC, fname = :fname, lname = :lname, phoneC = :phoneC, mail = :mail, credit = :credit" );
+        query.prepare ("update client SET fname = :fname, lname = :lname, phoneC = :phoneC, mail = :mail, credit = :credit where NIC=:NIC" );
 
         // Creating variables
         query.bindValue(":NIC",NIC);
@@ -79,6 +79,40 @@ bool client::update()
         query.bindValue(":credit", credit);
 
        return query.exec();
+}
+
+QSqlQueryModel * client::sort(QString option)
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+        if(option == "First Name"){
+            model->setQuery("SELECT * from client order by fname asc");
+        }
+        else if(option =="Last Name")
+        {
+            model->setQuery("SELECT * from client order by lname asc ");
+        }
+        else if(option =="NIC")
+        {
+            model->setQuery("SELECT * from client order by NIC asc ");
+        }
+        return model;
+}
+
+QSqlQueryModel * client::search(QString option, QString text)
+{
+    QSqlQueryModel * model=new QSqlQueryModel();
+        if(option == "First Name"){
+            model->setQuery("SELECT * from client where ( fname like '%"+text+"%' )");
+        }
+        else if(option =="Last Name")
+        {
+            model->setQuery("SELECT * from client where ( lname like '%"+text+"%' )");
+        }
+        else if(option =="NIC")
+        {
+            model->setQuery("SELECT * from client where ( NIC like '%"+text+"%' ) ");
+        }
+        return model;
 }
 
 void client::setNIC(QString c){

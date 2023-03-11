@@ -33,6 +33,8 @@ public:
         QSqlQueryModel * Read ();
         bool Delete (QString);
         bool update();
+        QSqlQueryModel* sort(QString);
+        QSqlQueryModel* search(QString, QString);
 
     private:
         QString NIC, fname, lname, mail, phoneC, credit;

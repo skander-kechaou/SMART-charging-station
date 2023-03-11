@@ -24,6 +24,14 @@ private slots:
 
     void on_EditButton_clicked();
 
+    void on_PDFButton_clicked();
+
+    void on_refreshButton_clicked();
+
+    void on_sortButton_clicked();
+
+    void on_searchButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     client Etmp;

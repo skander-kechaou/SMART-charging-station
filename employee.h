@@ -3,6 +3,7 @@
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+
 class Employee
 {
 public:
@@ -32,6 +33,7 @@ public:
 
      //CRUD
      bool addEmp();
+     QStringList list();
      QSqlQueryModel *view();
      bool deleteEmp(QString ID);
      bool modify();
@@ -42,6 +44,8 @@ public:
      QSqlQueryModel* searchID(QString id);
      QSqlQueryModel* searchRole(QString r);
       void  statistics(QVector<double>* ticks,QVector<QString> *labels);
+int Stat_part1();
+int Stat_part2();
 
 private :
    QString   ID;

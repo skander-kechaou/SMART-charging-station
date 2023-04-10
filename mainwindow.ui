@@ -23,8 +23,8 @@
    <widget class="QGroupBox" name="formulaire">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>70</y>
+      <x>40</x>
+      <y>90</y>
       <width>321</width>
       <height>321</height>
      </rect>
@@ -59,26 +59,6 @@ font: 15pt &quot;Berlin Sans FB&quot;;
      </property>
      <property name="text">
       <string>STATION</string>
-     </property>
-    </widget>
-    <widget class="Line" name="line">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>47</y>
-       <width>291</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">Line
-{
-background-color: rgb(255, 255, 255);
-}
-</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
     <widget class="QLabel" name="IDstatLabel">
@@ -160,7 +140,7 @@ font: 10pt &quot;Berlin Sans FB&quot;;
 </string>
      </property>
      <property name="text">
-      <string>Location Stat</string>
+      <string>Location Station</string>
      </property>
     </widget>
     <widget class="QLabel" name="CapacityLabel">
@@ -235,27 +215,7 @@ font: 10pt &quot;Berlin Sans FB&quot;;
 </string>
      </property>
     </widget>
-    <widget class="Line" name="line_2">
-     <property name="geometry">
-      <rect>
-       <x>15</x>
-       <y>260</y>
-       <width>291</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">Line
-{
-background-color: rgb(255, 255, 255);
-}
-</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="addButton">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -277,7 +237,7 @@ background-color: rgb(255, 255, 255);
       <string>Add</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="editButton">
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -300,7 +260,7 @@ background-color: rgb(255, 255, 255);
       <string>Edit</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="icon">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -319,26 +279,91 @@ background-color: rgb(255, 255, 255);
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>../../Downloads/feedback (2).png</pixmap>
+      <pixmap>../../station1/feedback.png</pixmap>
      </property>
     </widget>
-   </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>140</y>
-      <width>611</width>
-      <height>231</height>
-     </rect>
-    </property>
+    <widget class="QLabel" name="nbemplabel">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>140</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+background-color: rgb(255, 255, 255);
+color: rgb(106,168,79);
+font: 10pt &quot;Berlin Sans FB&quot;;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Number of employees</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="nb_empedit">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>160</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit{
+	background-color: rgb(255, 255, 255);
+}</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>200</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+background-color: rgb(255, 255, 255);
+color: rgb(106,168,79);
+font: 10pt &quot;Berlin Sans FB&quot;;
+}</string>
+     </property>
+     <property name="text">
+      <string>availability</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="availedit">
+     <property name="geometry">
+      <rect>
+       <x>182</x>
+       <y>220</y>
+       <width>113</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit
+{
+	background-color: rgb(255, 255, 255);
+}
+</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>410</x>
       <y>100</y>
-      <width>251</width>
+      <width>131</width>
       <height>21</height>
      </rect>
     </property>
@@ -354,7 +379,7 @@ background-color: rgb(255, 255, 255);
      <string>List Of Stations</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="searchEdit">
     <property name="geometry">
      <rect>
       <x>890</x>
@@ -372,7 +397,10 @@ background-color: rgb(255, 255, 255);
 }</string>
     </property>
     <property name="text">
-     <string>search</string>
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Search</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -396,7 +424,7 @@ background-color: rgb(255, 255, 255);
      <string>Sort By</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
+   <widget class="QLabel" name="sort">
     <property name="geometry">
      <rect>
       <x>430</x>
@@ -409,10 +437,10 @@ background-color: rgb(255, 255, 255);
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../../Downloads/sort.png</pixmap>
+     <pixmap>../../station1/sort.png</pixmap>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="sortCombo">
     <property name="geometry">
      <rect>
       <x>524</x>
@@ -446,7 +474,7 @@ background-color: rgb(255, 255, 255);
      </property>
     </item>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="sortbutton">
     <property name="geometry">
      <rect>
       <x>707</x>
@@ -470,27 +498,6 @@ background-color: rgb(255, 255, 255);
      <string>Sort</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>1010</x>
-      <y>100</y>
-      <width>21</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel{
-	background-color: rgb(255, 255, 255);
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Downloads/search-interface-symbol.png</pixmap>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
@@ -507,22 +514,6 @@ background-color: rgb(255, 255, 255);
      <pixmap>../../Downloads/gas-station (3).png</pixmap>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>990</x>
-      <y>40</y>
-      <width>41</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Downloads/gas-pump (1).png</pixmap>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
@@ -537,22 +528,6 @@ background-color: rgb(255, 255, 255);
     </property>
     <property name="pixmap">
      <pixmap>../../Downloads/gas-pump (1).png</pixmap>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_11">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>390</y>
-      <width>221</width>
-      <height>171</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Downloads/gas-station (3).png</pixmap>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
@@ -591,6 +566,147 @@ background-color: rgb(255, 255, 255);
     <property name="pixmap">
      <pixmap>../../Downloads/sort.png</pixmap>
     </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>140</y>
+      <width>631</width>
+      <height>221</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteButton">
+    <property name="geometry">
+     <rect>
+      <x>952</x>
+      <y>392</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	
+	background-color: rgb(167, 82, 97);
+	color: rgb(255, 255, 255);
+	font: 10pt &quot;Berlin Sans FB&quot;;
+	border-radius: 10px;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="search">
+    <property name="geometry">
+     <rect>
+      <x>1000</x>
+      <y>100</y>
+      <width>31</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../station1/search-interface-symbol.png</normaloff>../../station1/search-interface-symbol.png</iconset>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pdf">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>90</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../station1/pdf-file.png</normaloff>../../station1/pdf-file.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trashcan">
+    <property name="geometry">
+     <rect>
+      <x>926</x>
+      <y>384</y>
+      <width>21</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../../station1/trash-can.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QFrame" name="chart">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>420</y>
+      <width>361</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
+   </widget>
+   <widget class="QComboBox" name="searchBox">
+    <property name="geometry">
+     <rect>
+      <x>751</x>
+      <y>100</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox
+{
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	font: 9pt &quot;Berlin Sans FB&quot;;
+
+}</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Stat Location</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>ID station</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Name Station</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

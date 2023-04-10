@@ -1,39 +1,50 @@
 #ifndef STATION_H
 #define STATION_H
-
+#include <QtCore/QString>
+#include <iostream>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
 
 class station
 {
-    int id_stat;
-    int capacity;
-    QString nameStat, locaStat;
+private:
+      QString id_stat;
+     QString nameStat;
+     QString  locaStat;
+     int capacity;
+     int nb_emp;
+     QString availability;
 
   public:
 
       //Constructors
       station(){}
-      station(int,QString,QString);
+      station( QString,QString,QString,int,int,QString);
 
       //Getters
+       QString getid_stat(){return  id_stat;}
       QString getnameStat(){return  nameStat;}
       QString getlocaStat(){return  locaStat;}
-      int getid_stat(){return  id_stat;}
        int getcapacity(){return  capacity;}
-
+       int getnb_emp(){return  nb_emp;}
+       QString getavailability(){return availability;}
       //Setters
+       void setid_stat( QString id_stat){this->id_stat=id_stat;}
       void setnameStat(QString n){nameStat=n;}
       void setlocaStat(QString p){locaStat=p;}
-      void setid_Stat(int id_Stat){this->id_Stat=id_Stat;}
        void setcapacity(int capacity){this->capacity=capacity;}
+       void setnb_emp(int nb_emp){this->nb_emp=nb_emp;}
+       void setavailability(QString availability){this->availability=availability;}
 
       // Student base features
-      bool Create ();
-      QSqlQueryModel * Read ();
-      bool Delete (int);
+      bool Create();
+      QSqlQueryModel * Read();
+      bool Delete( QString);
+      bool update();
+       QSqlQueryModel* sort(QString);
+       QSqlQueryModel* search(QString, QString);
+       int count_location(QString location_stat);
 
   };
-public:
-    station();
-};
 
 #endif // STATION_H

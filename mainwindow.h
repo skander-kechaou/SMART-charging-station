@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include "station.h"
-#include <QMainWindow>
 #define nullptr NULL
 
 namespace Ui {
@@ -18,8 +17,21 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_create_clicked();
-    void on_pushButton_delete_clicked();
+
+
+    void on_addButton_clicked();
+
+    void on_editButton_clicked();
+
+    void on_tableView_clicked(const QModelIndex &index);
+
+    void on_deleteButton_clicked();
+
+    void on_sortbutton_clicked();
+
+    void on_search_clicked();
+
+    void on_pdf_clicked();
 
 private:
     Ui::MainWindow *ui;

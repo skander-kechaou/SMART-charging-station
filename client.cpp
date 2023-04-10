@@ -51,6 +51,7 @@ QSqlQueryModel * client::Read()
         model->setHeaderData(4,Qt::Horizontal,QObject::tr("E-mail"));
         model->setHeaderData(5,Qt::Horizontal,QObject::tr("Credit"));
 
+
         return  model;
 }
 
@@ -113,6 +114,18 @@ QSqlQueryModel * client::search(QString option, QString text)
             model->setQuery("SELECT * from client where ( NIC like '%"+text+"%' ) ");
         }
         return model;
+}
+
+int client::count_credit(QString credit)
+{
+    QSqlQuery qry;
+       qry.prepare("select * from client where credit=:credit");
+       qry.bindValue(":credit",credit);
+
+       qry.exec();
+       int total=0;
+       while (qry.next()) total++;
+       return total;
 }
 
 void client::setNIC(QString c){

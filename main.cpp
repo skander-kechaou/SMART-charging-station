@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include "connection.h"
+#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
@@ -9,11 +10,12 @@ int main(int argc, char *argv[])
     /* w.show();
     return a.exec();*/
     connection c;
-        bool test=c.createconnect();
+    QString opensslVersionString = QSslSocket::sslLibraryBuildVersionString();
+    qDebug() << "OpenSSL version: " << opensslVersionString;        bool test=c.createconnect();
         MainWindow w;
         if(test)
         {w.show();
-            QMessageBox::critical(nullptr, QObject::tr("database is open"),
+            QMessageBox::information(nullptr, QObject::tr("database is open"),
                         QObject::tr("connection successful.\n"
                                     "Click Cancel to exit."), QMessageBox::Cancel);
 

@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "client.h"
+#include <QtCharts>
+#include <QChartView>
+#include <QBarSeries>
+#include <QBarSet>
 
 #include <QMainWindow>
 
@@ -31,6 +35,12 @@ private slots:
     void on_sortButton_clicked();
 
     void on_searchButton_clicked();
+
+    void on_sendButton_clicked();
+
+    void on_qrcodeButton_clicked();
+
+    void showTime();
 
 private:
     Ui::MainWindow *ui;

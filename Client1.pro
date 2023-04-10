@@ -1,10 +1,24 @@
 QT       += core gui
 QT       += sql
+QT       += printsupport
+QT       += charts
+QT       += serialport
+QT       += multimedia
+QT       += network network-private
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+TARGET = smtp
+
 CONFIG += c++11
 CONFIG += console
+RC_ICONS = logo.ico
+
+#LIBS += -L D:\OpenSSL\lib -lssl -lcrypto
+#INCLUDEPATH += D:\OpenSSL\include
+#QMAKE_LFLAGS += -Wl,-rpath,D:\OpenSSL\lib
+
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -20,15 +34,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     client.cpp \
     connection.cpp \
+    history.cpp \
+    maildialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    qrcode.cpp \
+    qrcodegenerator.cpp \
+    qrwidget.cpp \
+    smtp.cpp
 
 HEADERS += \
     client.h \
     connection.h \
-    mainwindow.h
+    history.h \
+    maildialog.h \
+    mainwindow.h \
+    qrcode.h \
+    qrcodegenerator.h \
+    qrwidget.h \
+    smtp.h
 
 FORMS += \
+    maildialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

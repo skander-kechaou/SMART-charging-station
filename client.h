@@ -35,6 +35,7 @@ public:
         bool update();
         QSqlQueryModel* sort(QString);
         QSqlQueryModel* search(QString, QString);
+        int count_credit(QString credit);
 
     private:
         QString NIC, fname, lname, mail, phoneC, credit;

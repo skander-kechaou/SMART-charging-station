@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "car.h"
+#include "exportexcelobject.h"
 #include <QMainWindow>
-#define nullptr NULL
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,12 +17,27 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_delete_clicked();
-    void on_addcar_clicked();
+    void on_addButton_clicked();
+
+    void on_deleteButton_clicked();
+
+    void on_tableView_clicked(const QModelIndex &index);
+
+    void on_EditButton_clicked();
+
+    void on_sortButton_clicked();
+
+    void on_searchButton_clicked();
+
+    void on_pdfButton_clicked();
+
+
+    void on_xlsButton_clicked();
+
+    void on_imageButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-
-    car Ctmp;
+    car Etmp;
 };
 #endif // MAINWINDOW_H

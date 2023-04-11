@@ -21,8 +21,3 @@ bool connection::createconnect()
 
     return  test;
 }
-
-void connection::closeconnect()
-{
-    db.close();
-}

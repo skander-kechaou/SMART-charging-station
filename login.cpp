@@ -10,14 +10,32 @@
 #include <QVideoWidget>
 #include <QMessageBox>
 #include <QMediaPlayer>
+#include "sign_up.h"
+#include "ui_sign_up.h"
+
 Login::Login(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Login)
 {
     ui->setupUi(this);
+    //arduino
+                int ret=A.connect_arduino();
+                switch(ret){
+                  case(0):qDebug()<< "arduino is availble and connected to :"<< A.getarduino_port_name();
+                      break;
+                  case(1):qDebug()<< "arduino is availble but not connected to :"<< A.getarduino_port_name();
+                      break;
+                  case(-1):qDebug()<< "arduino is not availble";
+                  }
+                  QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label()));
+
+
+
 QMediaPlayer *music =new QMediaPlayer();
 music->setMedia(QUrl("C:/Users/nadal/OneDrive/Documents/Smart_charging_station/inspiring-emotional-uplifting-piano-112623.mp3"));
 music->play();
+
+ui->lineEditoldpwd->setEchoMode(QLineEdit::Password);
 }
 
 Login::~Login()
@@ -32,15 +50,23 @@ void Login::on_login_clicked()
        QString username = ui->lineEditoldname->text();
        QString pwd = ui->lineEditoldpwd->text();
 
-  if((username !=  "")&&(pwd!="")) {
+  if((username !="")&&(pwd!="")) {
          Account a(username,pwd);
           bool test=a.connect(username,pwd);
 
           if(test)
                 {
+
+              QPixmap outPixmap = QPixmap();
+              outPixmap.loadFromData(a.fetch_image(username),"JPG");
+              outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
+             ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
+
+              ui->lineEditoldname->setText(username);
                  Employee emp;
                  EmployeeManagement d;
                  d.exec();
+
                  ui->lineEditoldname->setText(" ");
                  ui->lineEditoldpwd->setText(" ");
 
@@ -50,30 +76,12 @@ void Login::on_login_clicked()
                         QObject::tr("username and  password is not correct\n"
                                     "OK."), QMessageBox::Cancel);
 }
-}
-/*
 
-void Login::on_pushButton_2_clicked()
+}
+
+
+void Login::on_loginbtn_clicked()
 {
-    if (ui->lineEditoldpwd->text()==ui->confirmpwd->text())
-           {
-               if (ui->lineEditoldpwd->text()!="" && ui->confirmpwd->text()!="")
-               {
-                   bool test=modifier_mdp(current_user,ui->ancienMotDePasseLineEdit->text(),ui->nouveauMotDePasseLineEdit->text());
-
-                   if (!test)
-                       QMessageBox::warning(this,tr("Changement du MDP"),tr("Erreur lors du changement du MDP"));
-                   else
-                   {
-                       ui->ancienMotDePasseLineEdit->clear();
-                       ui->nouveauMotDePasseLineEdit->clear();
-                       ui->confirmerNouveauMotDePasseLineEdit->clear();
-                   }
-               }
-               else
-                   QMessageBox::warning(this,tr("Changement du MDP"),tr("Veuillez remplir tous les champs"));
-           }
-           else
-               QMessageBox::warning(this,tr("Changement du MDP"),tr("Les deux mots de passe ne sont pas identiques"));
+    Sign_up d;
+    d.exec();
 }
-*/

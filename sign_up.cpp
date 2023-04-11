@@ -21,41 +21,6 @@ Sign_up::Sign_up(QWidget *parent) :
     ui->setupUi(this);
 
 
-    mCamera = new QCamera(this);
-        mQCameraViewfinder = new QCameraViewfinder(this);
-         mQCameraImageCapture = new QCameraImageCapture(mCamera,this);
-         mLayout =new QVBoxLayout;
-         mOptionsMenu = new QMenu("Ouvrir Cam",this);
-         mCamera->setViewfinder(mQCameraViewfinder);
-         mEncenderAction =new QAction("Ouvrir Cam",this);
-         mApAction =new QAction("Stop Camera",this);
-         mCaptureAction =new QAction("Capture image",this);
-         mOptionsMenu->addActions({mEncenderAction,mApAction,mCaptureAction});
-         ui->cam->setMenu(mOptionsMenu);
-         mLayout->addWidget(mQCameraViewfinder);
-         mLayout->setMargin(0);
-         ui->scrollArea->setLayout(mLayout);
-         connect(mEncenderAction,&QAction::triggered,[&](){
-             mCamera->start();
-         });
-         connect(mApAction,&QAction::triggered,[&](){
-             mCamera->stop();
-         });
-   connect(mCaptureAction,&QAction::triggered,[&](){
-      auto filename =QFileDialog ::getSaveFileName(this,"Capturer","/","Image(*.jpg;*.jpeg)");
-      if(filename.isEmpty()){
-          return;
-      }
-              mQCameraImageCapture->setCaptureDestination(QCameraImageCapture::CaptureToFile);
-       QImageEncoderSettings ImageEncoderSettings;
-       ImageEncoderSettings.setCodec("image/jpeg");
-       ImageEncoderSettings.setResolution(1600,1200);
-       mQCameraImageCapture->setEncodingSettings(ImageEncoderSettings);
-       mCamera->setCaptureMode(QCamera::CaptureStillImage);
-       mCamera->start();
-       mQCameraImageCapture->capture(filename);
-       mCamera->unlock();
-   });
 
 
 

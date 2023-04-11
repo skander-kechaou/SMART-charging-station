@@ -1,13 +1,17 @@
 QT       += sql \
             multimedia \
             multimediawidgets \
-            printsupport
+            network\
+            printsupport\
+            serialport
 
 
+QT += core charts
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets \
+                                    printsupport
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-CONFIG += console
+#CONFIG += console
+CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -22,23 +26,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Account.cpp \
+    arduino.cpp \
+    chat.cpp \
     connection.cpp \
     employee.cpp \
     employeemanagement.cpp \
     main.cpp \
-    login.cpp
+    login.cpp \
+    sign_up.cpp
 
 HEADERS += \
     Account.h \
+    arduino.h \
+    chat.h \
     connection.h \
     employee.h \
     employeemanagement.h \
-    login.h
+    login.h \
+    sign_up.h
 
 FORMS += \
+    chat.ui \
     employeemanagement.ui \
     login.ui \
-    reset.ui
+    reset.ui \
+    sign_up.ui
+
+QMAKE_CXXFLAGS += -std=gnu++14
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -11,7 +11,6 @@
 #include <QtPrintSupport/QPrintDialog>
 #include <QDebug>
 #include <QtSql/QSqlError>
-#include<QIntValidator>
 #include <QCloseEvent>
 
 #include <QFileDialog>
@@ -23,7 +22,80 @@
 #include <QMouseEvent>
 #include <QScrollArea>
 #include <QDesktopServices>
-    #include <QPdfWriter>
+ #include <QPdfWriter>
+
+
+#include <QtCharts/QChartView>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QLegend>
+#include <QtCharts/QBarCategoryAxis>
+#include <QtCharts/QHorizontalStackedBarSeries>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QCategoryAxis>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+using namespace QtCharts;
+
+
+
+#include "chat.h"
+#include "ui_chat.h"
+#include "login.h"
+
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
+#include <QObject>
+#include<ctime>
+#include <QTcpSocket>
+#include <QDebug>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QIntValidator>
+
+#include<QFile>
+#include<QFileDialog>
+
+#include <QTextDocument>
+#include <QPainter>
+#include <QTextStream>
+#include <QPdfWriter>
+#include <string>
+#include <QSqlError>
+#include <vector>
+#include<QDirModel>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <QtSvg/QSvgRenderer>
+#include <QTabWidget>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
+#include <QDesktopServices>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QStackedWidget>
+#include <QCamera>
+#include <QCameraViewfinder>
+#include <QCameraImageCapture>
+#include <QMenu>
+#include <QAction>
+#include <QFileDialog>
+#include<QPixmap>
+#include <QPrintDialog>
+#include<QPrinter>
+#include <QTextTableCell>
+
+#include<QPainter>
+#include<QDesktopServices>
+#include<QUrl>
+#include <QtWidgets>
+#include <QPlainTextEdit>
+#include <QPrinterInfo>
+#include <QTextStream>
+#include <QTextStream>
+#include<QPdfWriter>
+#include <QWidget>
 EmployeeManagement::EmployeeManagement(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EmployeeManagement)
@@ -32,7 +104,18 @@ EmployeeManagement::EmployeeManagement(QWidget *parent) :
     QRegularExpression rx("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$",
                                  QRegularExpression::CaseInsensitiveOption);
        ui->lineEdit_4->setValidator(new QRegularExpressionValidator(rx, this));
+       ui->lineEdit_5 -> setValidator (new QIntValidator(0, 999999, this));
+        ui->lineEdit_7 -> setValidator (new QIntValidator(0, 999999, this));
       ui->tableView->setModel(e.view());
+
+ui->comboBox->addItems(e.list());
+
+            QPixmap outPixmap = QPixmap();
+                 outPixmap.loadFromData(a.fetch_image(a.username),"JPG");
+                outPixmap = outPixmap.scaledToWidth(ui->label_2->width(),Qt::SmoothTransformation);
+
+               ui->label_2->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
+
 
 }
 
@@ -52,7 +135,7 @@ void EmployeeManagement::on_add_clicked()
         int  Phone=ui->lineEdit_5->text().toInt();
         QString role=ui->lineEdit_6->text();
         float  salary=ui->lineEdit_7->text().toFloat();
-        QString idstat=ui->lineEdit_8->text();
+        QString idstat=ui->comboBox->currentText();
     Employee  emp(  ID, mail,fname , Phone,  lname, salary, idstat, role);
 
 
@@ -71,7 +154,7 @@ void EmployeeManagement::on_add_clicked()
               ui->lineEdit_5->setText("");
               ui->lineEdit_6->setText("");
               ui->lineEdit_7->setText("");
-              ui->lineEdit_8->setText("");
+
 
 
     }
@@ -90,7 +173,6 @@ void EmployeeManagement::on_tableView_clicked(const QModelIndex &index)
        ui->lineEdit_5->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),3)).toString());
        ui->lineEdit_3->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),4)).toString());
        ui->lineEdit_7->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),5)).toString());
-       ui->lineEdit_8->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),6)).toString());
        ui->lineEdit_6->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),7)).toString());
 }
 
@@ -117,35 +199,7 @@ void EmployeeManagement::on_buttonDelete_clicked()
 
 
 }
-/*
-void EmployeeManagement::on_pushButton12_clicked()
-{
-    QString  ID=ui->lineEdit->text();
-    QString fname=ui->lineEdit_2->text();
-    QString lname=ui->lineEdit_3->text();
-    QString mail=ui->lineEdit_4->text();
-    int  Phone=ui->lineEdit_5->text().toInt();
-    QString role=ui->lineEdit_6->text();
-    float  salary=ui->lineEdit_7->text().toFloat();
-    QString idstat=ui->lineEdit_8->text();
 
-            Employee  emp(  ID, mail,fname , Phone,  lname, salary, idstat, role);
-            bool test=emp.modify();
-            if(test)
-            {    ui->tableView->setModel(emp.view());
-
-                QMessageBox::information(nullptr, QObject::tr("ok"),
-                            QObject::tr("updated successfully \n"
-                                        "Click Cancel to exit."), QMessageBox::Ok);
-
-            }
-            else
-                QMessageBox::critical(nullptr, QObject::tr("not ok"),
-                            QObject::tr("failed to update\n"
-                                        "Click Cancel to exit."), QMessageBox::Cancel);
-
-}
-*/
 void EmployeeManagement::on_sort_clicked()
 {
 
@@ -290,115 +344,6 @@ void EmployeeManagement::on_PDF_clicked()
 
    }
 
-
-
-/*
-void Employee::stat(QCustomPlot *customPlot)
-{
-    QSqlQuery query,query1;
-    // set dark background gradient:
-    QLinearGradient gradient(0, 0, 0, 400);
-    gradient.setColorAt(0, QColor(90, 90, 90));
-    gradient.setColorAt(0.38, QColor(105, 105, 105));
-    gradient.setColorAt(1, QColor(70, 70, 70));
-    customPlot->clearPlottables();
-    customPlot->clearGraphs();
-    customPlot->replot();
-
-    customPlot->setBackground(QBrush(gradient));
-
-
-    QCPBars *fossil = new QCPBars(customPlot->xAxis, customPlot->yAxis);
-
-    fossil->setAntialiased(false);
-
-    fossil->setStackingGap(1);
-    // set names and colors:
-    fossil->setName("AGE");
-    fossil->setPen(QPen(QColor(111, 9, 176).lighter(170)));
-    fossil->setBrush(QColor(111, 9, 176));
-
-    QVector<double> ticks;
-    QVector<QString> labels;
-    query.prepare("SELECT COUNT(DISTINCT cin_e) FROM EMPLOYES where age between 18 and 23");////////////////
-    query.exec();
-    int un;
-    while(query.next())
-    {
-        un=query.value(0).toInt();
-        qDebug()<<un;
-    }
-    query.prepare("SELECT COUNT(DISTINCT cin_e) FROM EMPLOYES where age between 23 and 31");/////////////////
-    query.exec();
-    int deux;
-    while(query.next())
-    {
-        deux=query.value(0).toInt();
-    }
-
-    query.prepare("SELECT COUNT(DISTINCT cin_e) FROM EMPLOYES where age between 31 and 50");///////////////
-    query.exec();
-    int trois;
-    while(query.next())
-    {
-        trois=query.value(0).toInt();
-    }
-
-
-
-
-
-    ticks << 1 << 2 << 3 ;
-    labels << "[18,23]" << "[23,31]" << "[31,50]" ;///////////////////////////////
-    QSharedPointer<QCPAxisTickerText> textTicker(new QCPAxisTickerText);
-    textTicker->addTicks(ticks, labels);
-    customPlot->xAxis->setTicker(textTicker);
-    customPlot->xAxis->setTickLabelRotation(60);
-    customPlot->xAxis->setSubTicks(false);
-    customPlot->xAxis->setTickLength(0, 4);
-    customPlot->xAxis->setRange(0, 8);
-    customPlot->xAxis->setBasePen(QPen(Qt::white));
-    customPlot->xAxis->setTickPen(QPen(Qt::white));
-    customPlot->xAxis->grid()->setVisible(true);
-    customPlot->xAxis->grid()->setPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
-    customPlot->xAxis->setTickLabelColor(Qt::white);
-    customPlot->xAxis->setLabelColor(Qt::green);
-
-    // prepare y axis:
-    customPlot->yAxis->setRange(0, 20);
-    customPlot->yAxis->setPadding(5);
-    customPlot->yAxis->setLabel("Employe");//////////////////
-    customPlot->yAxis->setBasePen(QPen(Qt::white));
-    customPlot->yAxis->setTickPen(QPen(Qt::white));
-    customPlot->yAxis->setSubTickPen(QPen(Qt::white));
-    customPlot->yAxis->grid()->setSubGridVisible(true);
-    customPlot->yAxis->setTickLabelColor(Qt::white);
-    customPlot->yAxis->setLabelColor(Qt::white);
-    customPlot->yAxis->grid()->setPen(QPen(QColor(130, 130, 130), 0, Qt::SolidLine));
-    customPlot->yAxis->grid()->setSubGridPen(QPen(QColor(130, 130, 130), 0, Qt::DotLine));
-
-    // Add data:
-    QVector<double> fossilData, nuclearData, regenData;
-    fossilData  << un << deux << trois;
-   // nuclearData << 0.08*10.5 << 0.12*5.5 << 0.12*5.5 << 0.40*5.8 << 0.09*5.2 << 0.00*4.2 << 0.07*11.2;
-    regenData   << 0.06*10.5 << 0.05*5.5 << 0.04*5.5 << 0.06*5.8 << 0.02*5.2 << 0.07*4.2 << 0.25*11.2;
-    fossil->setData(ticks, fossilData);
-  //  nuclear->setData(ticks, nuclearData);
- //   regen->setData(ticks, regenData);
-
-    // setup legend:
-    customPlot->legend->setVisible(true);
-    customPlot->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignTop|Qt::AlignHCenter);
-    customPlot->legend->setBrush(QColor(255, 255, 255, 100));
-    customPlot->legend->setBorderPen(Qt::NoPen);
-    QFont legendFont = QFont();
-    legendFont.setPointSize(10);
-    customPlot->legend->setFont(legendFont);
-    customPlot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-
-}*/
-
-
 void EmployeeManagement::on_edit_clicked()
 {
     QString  ID=ui->lineEdit->text();
@@ -408,13 +353,14 @@ void EmployeeManagement::on_edit_clicked()
     int  Phone=ui->lineEdit_5->text().toInt();
     QString role=ui->lineEdit_6->text();
     float  salary=ui->lineEdit_7->text().toFloat();
-    QString idstat=ui->lineEdit_8->text();
+    QString idstat=ui->comboBox->currentText();
 
             Employee  emp(  ID, mail,fname , Phone,  lname, salary, idstat, role);
             bool test=emp.modify();
             if(test)
             {    ui->tableView->setModel(emp.view());
-
+                   ui->comboBox->clear();
+         ui->comboBox->addItems(emp.list());
                 QMessageBox::information(nullptr, QObject::tr("ok"),
                             QObject::tr("updated successfully \n"
                                         "Click Cancel to exit."), QMessageBox::Ok);
@@ -424,4 +370,120 @@ void EmployeeManagement::on_edit_clicked()
                 QMessageBox::critical(nullptr, QObject::tr("not ok"),
                             QObject::tr("failed to update\n"
                                         "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+void EmployeeManagement::on_stat_clicked()
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+        model->setQuery("select * from EMPLOYEE where SALARY < 1000.0 ");
+        float salaire=model->rowCount();
+        model->setQuery("select * from EMPLOYEE where  SALARY BETWEEN 1000.0 AND 2000.0 ");
+        float salairee=model->rowCount();
+        model->setQuery("select * from EMPLOYEE where SALARY > 2000.0 ");
+        float salaireee=model->rowCount();
+        float total=salaire+salairee+salaireee;
+        QString a=QString("1000.0>salaries :"+QString::number((salaire*100)/total,'f',2)+"%" );
+        QString b=QString("1000.0<salaries<2000.0 :"+QString::number((salairee*100)/total,'f',2)+"%" );
+        QString c=QString("salaries>2000.0 "+QString::number((salaireee*100)/total,'f',2)+"%" );
+        QPieSeries *series = new QPieSeries();
+        series->append(a,salaire);
+        series->append(b,salairee);
+        series->append(c,salaireee);
+        if (salaire!=0)
+        {QPieSlice *slice = series->slices().at(0);
+            slice->setLabelVisible();
+            slice->setPen(QPen());}
+        if ( salairee!=0)
+        {
+            // Add label, explode and define brush for 2nd slice
+            QPieSlice *slice1 = series->slices().at(1);
+            slice1->setLabelVisible();
+        }
+        if(salaireee!=0)
+        {
+            // Add labels to rest of slices
+            QPieSlice *slice2 = series->slices().at(2);
+            slice2->setLabelVisible();
+        }
+        // Create the chart widget
+        QChart *chart = new QChart();
+        // Add data to chart with title and hide legend
+        chart->addSeries(series);
+        chart->setTitle("Percentage by salary of "+ QString::number(total)+" employees");
+
+          //change the color of the background
+         QLinearGradient backgroundGradient;
+
+           backgroundGradient.setColorAt(0.0, QRgb(0xb6d7a8));
+           backgroundGradient.setCoordinateMode(QGradient::ObjectBoundingMode);
+           chart->setBackgroundBrush(backgroundGradient);
+            chart->legend()->hide();
+
+        // Used to display the chart
+
+        QChartView *chartView = new QChartView(chart);
+         chartView->setRenderHint(QPainter::Antialiasing);
+         chartView->resize(500,250);
+         chartView->setParent(ui->chart);
+         chartView->show();
+}
+
+void EmployeeManagement::on_excel_clicked()
+{
+    QTableView *table;
+          table = ui->tableView;
+
+          QDateTime date = QDateTime::currentDateTime();
+          QString formattedTime = date.toString("dd.MM.yyyy hh:mm:ss");
+          QString d="excel/list "+formattedTime;
+          QString filters("xls files (*.xls);;All files (*.*)");
+          QString defaultFilter("xls files (*.xls)");
+          QString fileName = QFileDialog::getSaveFileName(0, "Save file",d,
+                             filters, &defaultFilter);
+          QFile file(fileName);
+          QAbstractItemModel *model =  table->model();
+          if (file.open(QFile::WriteOnly | QFile::Truncate)) {
+              QTextStream data(&file);
+              QStringList strList;
+              for (int i = 0; i < model->columnCount(); i++) {
+                  if (model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString().length() > 0)
+                     { strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
+   strList.append("\t");}
+                  else
+                      strList.append("");
+              }
+              data << strList.join("") << "\n";
+              for (int i = 0; i < model->rowCount(); i++) {
+                  strList.clear();
+                  for (int j = 0; j < model->columnCount(); j++) {
+
+                      if (model->data(model->index(i, j)).toString().length() > 0)
+                         { strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
+                      strList.append("\t");}
+                      else
+                          strList.append("");
+
+                  }
+                  data << strList.join("") + "\n";
+              }
+              file.close();
+
+
+
+          }
+}
+void EmployeeManagement::on_pushButton_4_clicked()
+{
+
+        Chat* w=new Chat(this);
+           w->show();
+
+
+}
+
+
+void EmployeeManagement::on_logout_clicked()
+{
+    Login *l;
+    l->show();
 }

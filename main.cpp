@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     connection c;
     bool test=c.createconnect();
-    // EmployeeManagement w;
+
      Login w;
     if(test)
     {w.show();

@@ -124,6 +124,18 @@ bool Employee::addEmp()
 
     return query.exec(); //exec() send request to be executed
 }
+
+QStringList Employee::list()
+{//extraire les cin_e pour les afficher dans le combobox
+QSqlQuery c;
+c.prepare("select id_stat from STATION");
+c.exec();
+QStringList l;
+while(c.next()){
+l<<c.value(0).toString();
+}
+return l;
+}
 QSqlQueryModel * Employee::view()
 {
 

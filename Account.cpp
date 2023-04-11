@@ -51,6 +51,38 @@ l<<c.value(0).toString();
 return l;
 }
 
+bool Account::ajouter_image(QString username)
+{
+    QByteArray byte;
+    QString filename=QFileDialog::getOpenFileName(0,"open image","D:\\",0);
+    QFile file(filename);
+
+    if (file.open(QIODevice::ReadOnly))
+    {
+        byte=file.readAll();
+        file.close();
+    }
+
+    QSqlQuery qry;
+    qry.prepare("UPDATE ACCOUNT SET image=:image where username=:username");
+    qry.bindValue(":image",byte,QSql::In | QSql::Binary);
+    qry.bindValue(":username",username);
+
+    return qry.exec();
+}
+QByteArray Account::fetch_image(QString uname)
+{
+    QSqlQuery qry;
+    qry.prepare("Select * from ACCOUNT where username =:username");
+    qry.bindValue(":username",uname);
+    qry.exec();
+    QSqlQueryModel * model = new QSqlQueryModel;
+    model->setQuery(qry);
+    QSqlRecord rec = model->record(0);
+    QByteArray img=rec.value("image").toByteArray();
+    return img;
+
+}
 /*
 bool Account::reset_pwd(QString user,QString old_mdp,QString new_mdp)
 {

@@ -32,30 +32,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arduino.cpp \
     client.cpp \
     connection.cpp \
     history.cpp \
-    maildialog.cpp \
     main.cpp \
     mainwindow.cpp \
     qrcode.cpp \
     qrcodegenerator.cpp \
     qrwidget.cpp \
-    smtp.cpp
 
 HEADERS += \
+    arduino.h \
     client.h \
     connection.h \
     history.h \
-    maildialog.h \
     mainwindow.h \
     qrcode.h \
     qrcodegenerator.h \
     qrwidget.h \
-    smtp.h
 
 FORMS += \
-    maildialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

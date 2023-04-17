@@ -60,7 +60,6 @@ int QrSegment::Mode::numCharCountBits(int ver) const {
 const QrSegment::Mode QrSegment::Mode::NUMERIC     (0x1, 10, 12, 14);
 const QrSegment::Mode QrSegment::Mode::ALPHANUMERIC(0x2,  9, 11, 13);
 const QrSegment::Mode QrSegment::Mode::BYTE        (0x4,  8, 16, 16);
-const QrSegment::Mode QrSegment::Mode::KANJI       (0x8,  8, 10, 12);
 const QrSegment::Mode QrSegment::Mode::ECI         (0x7,  0,  0,  0);
 
 

@@ -96,6 +96,14 @@ QSqlQueryModel * client::sort(QString option)
         {
             model->setQuery("SELECT * from client order by NIC asc ");
         }
+
+        model->setHeaderData(0,Qt::Horizontal,QObject::tr("NIC"));
+        model->setHeaderData(1,Qt::Horizontal,QObject::tr("First Name"));
+        model->setHeaderData(2,Qt::Horizontal,QObject::tr("Last Name"));
+        model->setHeaderData(3,Qt::Horizontal,QObject::tr("Phone"));
+        model->setHeaderData(4,Qt::Horizontal,QObject::tr("E-mail"));
+        model->setHeaderData(5,Qt::Horizontal,QObject::tr("Credit"));
+
         return model;
 }
 
@@ -113,6 +121,14 @@ QSqlQueryModel * client::search(QString option, QString text)
         {
             model->setQuery("SELECT * from client where ( NIC like '%"+text+"%' ) ");
         }
+
+        model->setHeaderData(0,Qt::Horizontal,QObject::tr("NIC"));
+        model->setHeaderData(1,Qt::Horizontal,QObject::tr("First Name"));
+        model->setHeaderData(2,Qt::Horizontal,QObject::tr("Last Name"));
+        model->setHeaderData(3,Qt::Horizontal,QObject::tr("Phone"));
+        model->setHeaderData(4,Qt::Horizontal,QObject::tr("E-mail"));
+        model->setHeaderData(5,Qt::Horizontal,QObject::tr("Credit"));
+
         return model;
 }
 
@@ -126,6 +142,16 @@ int client::count_credit(QString credit)
        int total=0;
        while (qry.next()) total++;
        return total;
+}
+
+QSqlQuery client::Load(QString NIC)
+{
+    QSqlQuery query;
+            query.prepare("select * from client where NIC=:NIC ");
+            query.bindValue(":NIC",NIC);
+
+            query.exec();
+            return query;
 }
 
 void client::setNIC(QString c){

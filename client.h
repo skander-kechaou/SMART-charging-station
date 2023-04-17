@@ -31,11 +31,13 @@ public:
         //CRUD features
         bool Create ();
         QSqlQueryModel * Read ();
+
         bool Delete (QString);
         bool update();
         QSqlQueryModel* sort(QString);
         QSqlQueryModel* search(QString, QString);
         int count_credit(QString credit);
+        QSqlQuery Load(QString NIC);
 
     private:
         QString NIC, fname, lname, mail, phoneC, credit;

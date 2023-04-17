@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "client.h"
-#include "maildialog.h"
 #include "qrcode.h"
 #include "qrcodegenerator.h"
 #include "qrwidget.h"
@@ -17,8 +16,12 @@
 #include <QDate>
 #include <QTime>
 #include <QTimer>
-#include <src/src/SmtpMime>
 #include "history.h"
+#include <QFile>
+#include <QLineEdit>
+#include <QByteArray>
+#include <QThread>
+#include <QSerialPort>
 
 using namespace qrcodegen;
 MainWindow::MainWindow(QWidget *parent)
@@ -29,15 +32,21 @@ MainWindow::MainWindow(QWidget *parent)
     // INPUT CONTROL
     QRegularExpression emailRegex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
     QRegularExpression regex("[a-zA-Z]+");
+    QRegularExpression creditRegex("^(0|100|200|300|400|500)$");
     ui->emailEdit->setValidator(new QRegularExpressionValidator(emailRegex, this));
     ui->pnbEdit->setValidator(new QIntValidator(10000000,99999999, this));
     ui->nicEdit->setValidator(new QIntValidator(10000000,99999999, this));
-    ui->creditEdit->setValidator(new QIntValidator(0,1000, this));
+    ui->creditEdit->setValidator(new QRegularExpressionValidator(creditRegex, this));
     ui->fnameEdit->setValidator(new QRegularExpressionValidator(regex, this));
     ui->lnameEdit->setValidator(new QRegularExpressionValidator(regex, this));
     //Timer
               QTimer *timer_p=new QTimer(this);
               connect(timer_p, SIGNAL(timeout()), this,SLOT(showTime()));
+              // history changes
+              connect(timer_p, &QTimer::timeout, this, &MainWindow::updateHistoryEdit);
+              // charts changes
+              connect(timer_p, &QTimer::timeout, this, &MainWindow::updateChart);
+
               timer_p->start(1000);
     //Date systeme
               QDateTime Date_p=QDateTime::currentDateTime();
@@ -54,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent)
     QScrollBar *hScrollBar = ui->tableView->horizontalScrollBar();
     vScrollBar->setStyleSheet("QScrollBar:vertical { background-color: #7FA39A; }");
     hScrollBar->setStyleSheet("QScrollBar:horizontal { background-color: #7FA39A; }");
+    ui->Date->setAlignment(Qt::AlignRight);
+    ui->time->setAlignment(Qt::AlignRight);
 
 
     // Images and Icons
@@ -64,8 +75,8 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap sort("C:/Users/Skander/Documents/Client1/sort.png");
     QPixmap trashcan("C:/Users/Skander/Documents/Client1/trash-can.png");
     QIcon refresh("C:/Users/Skander/Documents/Client1/refresh-button.png");
-    QPixmap mail("C:/Users/Skander/Documents/Client1/email.png");
     QIcon qrcode("C:/Users/Skander/Documents/Client1/qr-code.png");
+    QIcon history("C:/Users/Skander/Documents/Client1/history.png");
     ui->icon->setPixmap(icon);
     ui->client->setPixmap(client);
     ui->PDFButton->setIcon(pdf);
@@ -73,8 +84,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->sortLabel->setPixmap(sort);
     ui->trashcan->setPixmap(trashcan);
     ui->refreshButton->setIcon(refresh);
-    ui->mailing->setPixmap(mail);
     ui->qrcodeButton->setIcon(qrcode);
+    ui->historyButton->setIcon(history);
 
     // Statistics
 
@@ -85,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent)
         series->append("200", Etmp.count_credit("200"));
         series->append("300", Etmp.count_credit("300"));
         series->append("400", Etmp.count_credit("400"));
+        series->append("500", Etmp.count_credit("500"));
 
 
         QChart *chart = new QChart();
@@ -100,8 +112,58 @@ MainWindow::MainWindow(QWidget *parent)
         chartview->setRenderHint(QPainter::Antialiasing);
         chartview->setInteractive(true);
         chartview->setContentsMargins(0, 0, 0, 0);
-        chartview->setFixedSize(QSize(300, 200));
+        chartview->setFixedSize(QSize(350, 200));
 
+      // HISTORY
+        QFile file("C:/Users/Skander/Documents/Client1/history.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            qDebug() << "Failed to open file";
+            return;
+        }
+
+        QByteArray fileData(reinterpret_cast<const char*>(file.map(0, file.size())), file.size());
+        QString lastNonEmptyLine;
+        if (!fileData.isEmpty())
+        {
+            const char *data = fileData.constData() + fileData.size() - 1;
+            while (data >= fileData.constData() && (*data == '\n' || *data == '\r'))
+            {
+                --data;
+            }
+            const char *lineEnd = data + 1;
+            while (data >= fileData.constData() && *data != '\n' && *data != '\r')
+            {
+                --data;
+            }
+            const char *lineStart = data + 1;
+            lastNonEmptyLine = QString::fromUtf8(lineStart, lineEnd - lineStart);
+        }
+
+        ui->historyEdit->setPlainText(lastNonEmptyLine.trimmed());
+
+        // Arduino
+
+        int ret=a.connect_arduino(); // launch the connection to arduino
+            switch(ret){
+            case(0):qDebug()<< "arduino is available and connected to : "<< a.getarduino_port_name();
+                // Connect the signal to the slot to read data from the arduino
+                QObject::connect(a.getserial(), &QSerialPort::readyRead, [=]() {
+                            QByteArray data = a.read_from_arduino();
+                            //process_data(data);
+                            final+=data;
+                            qDebug()<<"final: "<<final;
+                            qDebug()<<"length: "<<final.length();
+                            if(final.length()==8)
+                            {
+                                process_data(final);
+                            }
+                        });
+                break;
+            case(1):qDebug() << "arduino is available but not connected to :" <<a.getarduino_port_name();
+               break;
+            case(-1):qDebug() << "arduino is not available";
+            }
 
 }
 
@@ -146,15 +208,20 @@ void MainWindow::on_deleteButton_clicked()
 {
 
     QString nic = ui->deleteEdit->text();
+
         bool test=Etmp.Delete(nic);
 
         if(test)
         {
-           /* client c("","","","","","");
-                     QSqlQuery materielInfo = c.Read();
-                     materielInfo.next();
-                     Historiques h(materielInfo.value(1).toString(), materielInfo.value(2).toString(), materielInfo.value(0).toString(), materielInfo.value(3).toString(), "");
-                     h.saveDeletemateriel();*/
+            client c;
+            c.setNIC(ui->nicEdit->text());
+            c.setFirstName(ui->fnameEdit->text());
+            c.setLastName(ui->lnameEdit->text());
+            c.setEmail(ui->emailEdit->text());
+            c.setPhone(ui->pnbEdit->text());
+            c.setCredit(ui->creditEdit->text());
+            history h(c.getNIC(),c.getFirstName(),c.getLastName(), c.getEmail(), c.getPhone(), c.getCredit(), "");
+            h.saveDeleteclient();
             // Refresh (Actualiser)
             ui->tableView->setModel(Etmp.Read());
 
@@ -178,7 +245,6 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
     ui->emailEdit->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),4)).toString());
     ui->creditEdit->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),5)).toString());
     ui->deleteEdit->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),0)).toString());
-    ui->recipientEdit->setText(ui->tableView->model()->data(ui->tableView->model()->index(index.row(),4)).toString());
 }
 
 void MainWindow::on_EditButton_clicked()
@@ -191,10 +257,13 @@ void MainWindow::on_EditButton_clicked()
     c.setPhone(ui->pnbEdit->text());
     c.setCredit(ui->creditEdit->text());
 
+
         bool test= c.update();
         if(test)
         {
             ui->tableView->setModel(Etmp.Read());
+            history h(c.getNIC(),c.getFirstName(),c.getLastName(), c.getEmail(), c.getPhone(), c.getCredit(), "");
+            h.saveUpdateclient(c.getNIC(),c.getFirstName(),c.getLastName(), c.getEmail(), c.getPhone(), c.getCredit(), "");
             QMessageBox::information(nullptr,QObject::tr(" OK"),
                                      QObject::tr("Update done\n"
                                                  "Click Cancel to exit."),QMessageBox::Cancel);
@@ -319,14 +388,6 @@ void MainWindow::on_searchButton_clicked()
         ui->tableView->setModel(c.search(Option,text));
 }
 
-void MainWindow::on_sendButton_clicked()
-{
-    client c;
-    c.setEmail(ui->emailEdit->text());
-    mailDialog m;
-    m.setClient(c);
-    m.exec();
-}
 
 void MainWindow::on_qrcodeButton_clicked()
 {
@@ -347,7 +408,6 @@ void MainWindow::on_qrcodeButton_clicked()
             for (int x = 0; x < qr.getSize(); x++) {
                 int color = qr.getModule(x, y);  // 0 for white, 1 for black
 
-                // You need to modify this part
                 if(color==0)
                     im.setPixel(x, y,qRgb(254, 254, 254));
                 else
@@ -361,4 +421,82 @@ void MainWindow::on_qrcodeButton_clicked()
 void MainWindow::showTime()
 {
     ui->time->setText(QTime::currentTime().toString("hh:mm:ss"));
+}
+
+void MainWindow::on_historyButton_clicked()
+{
+    QDesktopServices::openUrl(QUrl(tr("file:///C:/Users/Skander/Documents/Client1/history.txt")));
+}
+
+void MainWindow::updateHistoryEdit()
+{
+    QFile file("C:/Users/Skander/Documents/Client1/history.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "Failed to open file";
+        return;
+    }
+
+    QByteArray fileData(reinterpret_cast<const char*>(file.map(0, file.size())), file.size());
+    QString lastNonEmptyLine;
+    if (!fileData.isEmpty())
+    {
+        const char *data = fileData.constData() + fileData.size() - 1;
+        while (data >= fileData.constData() && (*data == '\n' || *data == '\r'))
+        {
+            --data;
+        }
+        const char *lineEnd = data + 1;
+        while (data >= fileData.constData() && *data != '\n' && *data != '\r')
+        {
+            --data;
+        }
+        const char *lineStart = data + 1;
+        lastNonEmptyLine = QString::fromUtf8(lineStart, lineEnd - lineStart);
+    }
+    // Check if the last non-empty line has changed
+    if (lastNonEmptyLine != ui->historyEdit->toPlainText())
+    {
+        ui->historyEdit->setPlainText(lastNonEmptyLine.trimmed());
+    }
+
+    // Close the file
+    file.close();
+
+}
+
+void MainWindow::updateChart()
+{
+
+        QPieSeries *series = new QPieSeries();
+
+        series->append("0", Etmp.count_credit("0"));
+        series->append("100", Etmp.count_credit("100"));
+        series->append("200", Etmp.count_credit("200"));
+        series->append("300", Etmp.count_credit("300"));
+        series->append("400", Etmp.count_credit("400"));
+        series->append("500", Etmp.count_credit("500"));
+
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle("Clients' Credit");
+        chart->setAcceptHoverEvents(true);
+        chart->setPreferredSize(QSize(300, 300));
+        chart->setMargins(QMargins(0, 0, 0, 0));
+        chart->setBackgroundBrush(QBrush(QColor(182, 215, 168)));
+        QChartView *chartview = new QChartView(chart);
+        chartview->setParent(ui->chart);
+        chartview->setRubberBand(QChartView::RectangleRubberBand);
+        chartview->setRenderHint(QPainter::Antialiasing);
+        chartview->setInteractive(true);
+        chartview->setContentsMargins(0, 0, 0, 0);
+        chartview->setFixedSize(QSize(300, 200));
+
+}
+
+void MainWindow::process_data(QByteArray data)
+{
+    QString nicKey = QString::fromUtf8(data).trimmed(); // convert data to QString and remove any leading/trailing whitespace
+    qDebug() << "Received nicKey from Arduino: " << nicKey;
+    a.get_client_info(nicKey);
 }

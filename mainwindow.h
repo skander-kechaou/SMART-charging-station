@@ -5,7 +5,7 @@
 #include <QChartView>
 #include <QBarSeries>
 #include <QBarSet>
-
+#include "arduino.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -36,14 +36,22 @@ private slots:
 
     void on_searchButton_clicked();
 
-    void on_sendButton_clicked();
-
     void on_qrcodeButton_clicked();
 
     void showTime();
 
+    void on_historyButton_clicked();
+
+    void updateHistoryEdit();
+
+    void updateChart();
+
+    void process_data(QByteArray data);
+
 private:
     Ui::MainWindow *ui;
     client Etmp;
+    QByteArray data, final; // variable containing the received data
+    arduino a; // temporary object
 };
 #endif // MAINWINDOW_H

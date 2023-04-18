@@ -12,12 +12,14 @@
 #include <QMediaPlayer>
 #include "sign_up.h"
 #include "ui_sign_up.h"
+#include "arduino.h"
 
 Login::Login(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Login)
 {
     ui->setupUi(this);
+
     //arduino
                 int ret=A.connect_arduino();
                 switch(ret){
@@ -27,7 +29,8 @@ Login::Login(QWidget *parent)
                       break;
                   case(-1):qDebug()<< "arduino is not availble";
                   }
-                  QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label()));
+
+                  QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(readData()));
 
 
 
@@ -85,3 +88,71 @@ void Login::on_loginbtn_clicked()
     Sign_up d;
     d.exec();
 }
+/*
+void Login::on_arduino_clicked()
+{
+    QDialog d;
+    //ard->write("read_card\n");
+
+
+        A.write_to_arduino(pa);
+    if (AdminAccess){
+        d.show();
+
+
+    }
+}
+*/
+void Login::readData()
+{
+
+   QString  data=A.read_from_arduino();
+   QString uid;
+   qDebug() <<"a=" << data;
+       if (data!="#")
+       {
+           uid+=data;
+          // qDebug() << uid;
+       }
+       else {
+           int pos = uid.lastIndexOf(QChar('/'));
+           qDebug() << "uid="<< uid.left(pos);
+           ui->image_pos->setText(uid);
+           uid="";
+      bool exist= acc.checkEmp(uid);
+       qDebug()<<exist;
+       if(exist)
+       {
+           EmployeeManagement d;
+           d.exec();
+       }
+
+       }
+
+}
+/*
+ void Login::readSerial()
+ {
+     QStringList buffer_split = serialBuffer.split(",");
+         if(buffer_split.length()< 2)
+         {
+             serialData = ard->readAll();
+             serialBuffer = serialBuffer + QString::fromStdString(serialData.toStdString());
+             qDebug()<< serialBuffer;
+             serialData.clear();
+         }
+         buffer_split = serialBuffer.split(",");
+         if(serialBuffer.lastIndexOf(QChar(',')) != -1)
+         {
+             qDebug()<< buffer_split<<"\n";
+             parsed_data = buffer_split[0];
+             UID = parsed_data;
+             qDebug()<< "UID :"<< UID<< "\n";
+             parsed_data = UID;
+             serialBuffer ="";
+            A.checkEmp(UID, ard);
+
+         }
+
+ }
+*/

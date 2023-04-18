@@ -5,6 +5,7 @@
 #include "Account.h"
 #include<QWidget>
 #include "arduino.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login; }
 QT_END_NAMESPACE
@@ -31,12 +32,24 @@ private slots:
 
     void on_mdp_oublie_label_linkActivated(const QString &link);
 
+    void on_arduino_clicked();
+     void readSerial();
+void readData();
 private:
     Ui::Login *ui;
        Login *l;
+        bool AdminAccess;
 Account *a;
 QByteArray data;
 Arduino A;
-
+ QSerialPort *ard;
+ QString arduino_port_name;
+ bool arduino_available;
+ QByteArray serialData;
+ QString serialBuffer;
+ QString parsed_data;
+ QString UID;
+Account acc;
+QList<QString> rfidUids;
 };
 #endif // LOGIN_H

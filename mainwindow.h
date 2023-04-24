@@ -22,6 +22,7 @@ public:
 
 private slots:
     void on_addButton_clicked();
+
     void on_deleteButton_clicked();
 
     void on_tableView_clicked(const QModelIndex &index);
@@ -48,10 +49,13 @@ private slots:
 
     void process_data(QByteArray data);
 
+    void update_data(QByteArray data);
+
 private:
     Ui::MainWindow *ui;
     client Etmp;
-    QByteArray data, final; // variable containing the received data
+    QByteArray data, final, finalC; // variable containing the received data
+    QString nicKey;
     arduino a; // temporary object
 };
 #endif // MAINWINDOW_H

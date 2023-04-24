@@ -143,21 +143,36 @@ MainWindow::MainWindow(QWidget *parent)
         ui->historyEdit->setPlainText(lastNonEmptyLine.trimmed());
 
         // Arduino
+        QMetaObject::Connection connectionNIC;
 
         int ret=a.connect_arduino(); // launch the connection to arduino
             switch(ret){
             case(0):qDebug()<< "arduino is available and connected to : "<< a.getarduino_port_name();
                 // Connect the signal to the slot to read data from the arduino
-                QObject::connect(a.getserial(), &QSerialPort::readyRead, [=]() {
+                 connectionNIC = QObject::connect(a.getserial(), &QSerialPort::readyRead, [=]() {
                             QByteArray data = a.read_from_arduino();
                             //process_data(data);
                             final+=data;
                             qDebug()<<"final: "<<final;
                             qDebug()<<"length: "<<final.length();
-                            if(final.length()==8)
+                            if((final.at(0)=='#') && (final.length()==4))
+                            {
+                                qDebug()<<"Inside the # if loop!";
+                                finalC = final;
+                                finalC.remove(0,1);
+                                qDebug()<<"finalC: "<<finalC;
+                                update_data(finalC);
+                                QObject::disconnect(connectionNIC);
+                                final.clear();
+                                finalC.clear();
+                            }
+                            else if(final.length()==8)
                             {
                                 process_data(final);
+                                QObject::disconnect(connectionNIC);
+                                final.clear();
                             }
+
                         });
                 break;
             case(1):qDebug() << "arduino is available but not connected to :" <<a.getarduino_port_name();
@@ -496,7 +511,24 @@ void MainWindow::updateChart()
 
 void MainWindow::process_data(QByteArray data)
 {
-    QString nicKey = QString::fromUtf8(data).trimmed(); // convert data to QString and remove any leading/trailing whitespace
+    nicKey = QString::fromUtf8(data).trimmed(); // convert data to QString and remove any leading/trailing whitespace
     qDebug() << "Received nicKey from Arduino: " << nicKey;
     a.get_client_info(nicKey);
 }
+
+void MainWindow::update_data(QByteArray data)
+{
+    QString credit = QString::fromUtf8(data).trimmed();
+    qDebug() << "NICKEY: "<< nicKey;
+    qDebug() << "Received credit from Arduino: " << credit;
+    bool test = a.update_credit(nicKey, credit);
+    if (test)
+    {
+        ui->tableView->setModel(Etmp.Read());
+        QMessageBox::information(nullptr,QObject::tr(" OK"),
+                                 QObject::tr("Update done\n"
+                                             "Click Cancel to exit."),QMessageBox::Cancel);
+
+    }
+}
+

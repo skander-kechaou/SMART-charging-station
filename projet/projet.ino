@@ -64,9 +64,9 @@ void loop() {
         lcd.print("Processing... ");
         //lcd.setCursor(0,1);
         //lcd.print(nicKey);
-        delay(5000);
+        delay(2000);
         Serial.print(nicKey);
-        delay(5000);
+        delay(2000);
         String message = "";
         while (Serial.available() > 0) 
         {
@@ -87,7 +87,55 @@ void loop() {
            // Print the two parts on separate lines on the LCD
           lcd.print(greeting);
           lcd.setCursor(0, 1);
-          lcd.print(credit); }
+          lcd.print(credit); 
+          
+         }
+    }
+         else if (key == '*') {   //if * is pressed, clear the LCD and ask for credit
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("How much ?");
+            lcd.setCursor(0,1);
+            char credit[5];
+            credit[0]='#';
+            int j = 1;
+            while (j < 4) { 
+              char digit = customKeypad.getKey();
+              if (digit != NO_KEY && isDigit(digit)) {
+                lcd.print(digit);  // print the digit for a second
+                delay(1000);
+                credit[j++] = digit;
+                lcd.setCursor(j-1, 1);
+              }
+            }
+            credit[4] = '\0'; // terminate the credit array with null character
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Processing... ");
+            delay(2000);
+            Serial.print(credit);
+            delay(2000);
+            String rest = "";
+            while (Serial.available() > 0) 
+            {
+              char d = Serial.read();
+              rest += d;
+            }
+    
+            // Print the message on the LCD
+            delay(2000);
+            lcd.clear();
+            lcd.setCursor(0,0);
+            lcd.print("Done!");
+            lcd.setCursor(0,1);
+            lcd.print(rest);
+            delay(5000);
+            lcd.clear();
+            lcd.setCursor(3,0);
+            lcd.print("Welcome to");
+            lcd.setCursor(3,1);
+            lcd.print("VoltVault !");
+
         
     }
   }

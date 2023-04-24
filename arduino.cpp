@@ -98,3 +98,32 @@ void arduino::get_client_info(QString nic)
     } else {
         qDebug() << "Error executing SQL query: " << query.last(); }
 }
+
+bool arduino::update_credit(QString nicKey, QString credit)
+{
+    double change = credit.toDouble();
+    QString old;
+    QSqlQuery query;
+    query.prepare("SELECT credit FROM client WHERE NIC = :nic");
+    query.bindValue(":nic", nicKey);
+
+    if(query.exec() && query.next()) {
+        old = query.value(0).toString();
+        qDebug() << "old: " << old;
+    }
+
+    double newcredit = old.toDouble() - change;
+    QString updatedCredit = QString::number(newcredit);
+
+    // Update the value in the database
+    query.prepare("UPDATE client SET credit = :credit WHERE NIC = :nic");
+    query.bindValue(":credit", updatedCredit);
+    query.bindValue(":nic", nicKey);
+    query.exec();
+
+        // Display the credit
+        QString message = "Rest : " + updatedCredit;
+        qDebug()<<message;
+        write_to_arduino(message.toUtf8());
+        return true;
+}

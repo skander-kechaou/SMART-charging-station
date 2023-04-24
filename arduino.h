@@ -3,6 +3,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
+#include <QMessageBox>
 #include "client.h"
 
 
@@ -17,6 +18,7 @@ public:     //méthodes de la classe Arduino
     QSerialPort* getserial();   // accesseur
     QString getarduino_port_name();
     void get_client_info(QString nic);
+    bool update_credit(QString nicKey, QString credit);
 
 public slots:
     void readyRead() {

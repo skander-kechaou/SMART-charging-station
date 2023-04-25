@@ -2,14 +2,17 @@
 #define ACCOUNT_H
 #include <QApplication>
 #include <QSqlQuery>
-
-
+#include <QSerialPort>
+#include <QSerialPort>
+#include "arduino.h"
+#include <QSqlQueryModel>
 class Account
 {
 
 
     QSqlQuery query;
 public:
+    Arduino a;
     QString pwd,username,role;
      Account();
      Account(QString username,QString pwd);
@@ -20,6 +23,8 @@ QStringList liste();
 bool ajouter_image(QString username);
 QByteArray fetch_image(QString uname);
 bool reset_pwd(QString user,QString old_mdp,QString new_mdp);
-bool update_mpd_reset(QString uname,QString code);
+
+bool checkEmp(QString ui);
+QString getEmployeCarte(QString ui);
 };
 #endif // ACCOUNT_H

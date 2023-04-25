@@ -34,7 +34,11 @@ private slots:
 
     void on_arduino_clicked();
      void readSerial();
+     QString readRFID();
 void readData();
+void on_AdminAccess_clicked();
+void process_data(QByteArray data);
+
 private:
     Ui::Login *ui;
        Login *l;
@@ -51,5 +55,11 @@ Arduino A;
  QString UID;
 Account acc;
 QList<QString> rfidUids;
+Account aa;
+QString c="";
+QString dat;
+     bool test=false;
+     Employee emp;
+
 };
 #endif // LOGIN_H

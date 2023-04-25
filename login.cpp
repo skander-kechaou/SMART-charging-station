@@ -24,13 +24,15 @@ Login::Login(QWidget *parent)
                 int ret=A.connect_arduino();
                 switch(ret){
                   case(0):qDebug()<< "arduino is availble and connected to :"<< A.getarduino_port_name();
+
+                    QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(readData()));
+
                       break;
                   case(1):qDebug()<< "arduino is availble but not connected to :"<< A.getarduino_port_name();
                       break;
                   case(-1):qDebug()<< "arduino is not availble";
                   }
 
-                  QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(readData()));
 
 
 
@@ -62,9 +64,9 @@ void Login::on_login_clicked()
 
               QPixmap outPixmap = QPixmap();
               outPixmap.loadFromData(a.fetch_image(username),"JPG");
-              outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
+              /*outPixmap = outPixmap.scaledToWidth(ui->image_pos->width(),Qt::SmoothTransformation);
              ui->image_pos->setPixmap(outPixmap.scaled(outPixmap.width(),outPixmap.height(),Qt::KeepAspectRatio));
-
+*/
               ui->lineEditoldname->setText(username);
                  Employee emp;
                  EmployeeManagement d;
@@ -88,71 +90,35 @@ void Login::on_loginbtn_clicked()
     Sign_up d;
     d.exec();
 }
-/*
-void Login::on_arduino_clicked()
-{
-    QDialog d;
-    //ard->write("read_card\n");
 
-
-        A.write_to_arduino(pa);
-    if (AdminAccess){
-        d.show();
-
-
-    }
-}
-*/
 void Login::readData()
 {
+ QString uid;
+  QString  data;
+  data=A.read_from_arduino();
+   qDebug() << "Received account from Arduino: " << data;
 
-   QString  data=A.read_from_arduino();
-   QString uid;
-   qDebug() <<"a=" << data;
-       if (data!="#")
+      if (data!="#")
        {
            uid+=data;
-          // qDebug() << uid;
+
        }
        else {
-           int pos = uid.lastIndexOf(QChar('/'));
-           qDebug() << "uid="<< uid.left(pos);
-           ui->image_pos->setText(uid);
-           uid="";
-      bool exist= acc.checkEmp(uid);
-       qDebug()<<exist;
-       if(exist)
-       {
-           EmployeeManagement d;
-           d.exec();
-       }
 
-       }
+           bool exist= acc.checkEmp(uid);
+           qDebug() << "Employee exists in database: " << exist;
+           qDebug()<<exist;
+    if(exist)
+    {
+         A.write_to_arduino("you may access !");
+         EmployeeManagement d;
+         d.exec();
+    }
+    else
+    {
+           A.write_to_arduino("access denied!");
+    }
 
 }
-/*
- void Login::readSerial()
- {
-     QStringList buffer_split = serialBuffer.split(",");
-         if(buffer_split.length()< 2)
-         {
-             serialData = ard->readAll();
-             serialBuffer = serialBuffer + QString::fromStdString(serialData.toStdString());
-             qDebug()<< serialBuffer;
-             serialData.clear();
-         }
-         buffer_split = serialBuffer.split(",");
-         if(serialBuffer.lastIndexOf(QChar(',')) != -1)
-         {
-             qDebug()<< buffer_split<<"\n";
-             parsed_data = buffer_split[0];
-             UID = parsed_data;
-             qDebug()<< "UID :"<< UID<< "\n";
-             parsed_data = UID;
-             serialBuffer ="";
-            A.checkEmp(UID, ard);
 
-         }
-
- }
-*/
+}

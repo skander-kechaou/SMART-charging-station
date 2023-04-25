@@ -96,11 +96,13 @@ using namespace QtCharts;
 #include <QTextStream>
 #include<QPdfWriter>
 #include <QWidget>
+
 EmployeeManagement::EmployeeManagement(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EmployeeManagement)
 {
     ui->setupUi(this);
+
     QRegularExpression rx("^[0-9a-zA-Z]+([0-9a-zA-Z]*[-._+])*[0-9a-zA-Z]+@[0-9a-zA-Z]+([-.][0-9a-zA-Z]+)*([0-9a-zA-Z]*[.])[a-zA-Z]{2,6}$",
                                  QRegularExpression::CaseInsensitiveOption);
        ui->lineEdit_4->setValidator(new QRegularExpressionValidator(rx, this));

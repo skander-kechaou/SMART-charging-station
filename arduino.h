@@ -19,6 +19,7 @@ public:
         QString read_from_arduino();  //receive data from Arduino
         QSerialPort* getserial();   // accessor
         QString getarduino_port_name();
+        QString get_emp_info(QString ui);
      //bool checkEmp(QString ui,QSerialPort *Arduino);
 private:
     QSerialPort * serial; //this object gathers informations (speed, data bits, etc.)
@@ -29,6 +30,7 @@ private:
     bool arduino_is_available;
     QByteArray data;  // contain data read from Arduino
     QString serialBuffer="";
+    Arduino *ar;
 };
 
 #endif // ARDUINO_H

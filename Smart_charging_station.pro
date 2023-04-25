@@ -1,16 +1,18 @@
 QT       += sql \
+           serialport\
             multimedia \
             multimediawidgets \
             network\
             printsupport\
-            serialport
+
+
 
 
 QT += core charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets \
                                     printsupport
 
-#CONFIG += console
+CONFIG += console
 CONFIG -= app_bundle
 
 # The following define makes your compiler emit warnings if you use
@@ -60,4 +62,18 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    res.qrc \
     res.qrc
+
+DISTFILES += \
+    ../Arduino/libraries/rfid-master/README.rst \
+    ../Arduino/libraries/rfid-master/UNLICENSE \
+    ../Arduino/libraries/rfid-master/changes.txt \
+    ../Arduino/libraries/rfid-master/keywords.txt \
+    ../Arduino/libraries/rfid-master/library.json \
+    ../Arduino/libraries/rfid-master/library.properties \
+    EXCEL/o1.xls \
+    EXCEL/o2.xls \
+    PDF/p1.pdf \
+    PDF/p2.pdf \
+    inspiring-emotional-uplifting-piano-112623.mp3

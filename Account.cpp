@@ -5,6 +5,7 @@
 #include "login.h"
 #include <QFileDialog>
 #include <QSqlRecord>
+#include "arduino.h"
 Account::Account()
 {
 }
@@ -83,23 +84,16 @@ QByteArray Account::fetch_image(QString uname)
     return img;
 
 }
-/*
-bool Account::reset_pwd(QString user,QString old_mdp,QString new_mdp)
-{
-    QSqlQuery qry;
-    qry.prepare("UPDATE ACCOUNT SET password=:new_password WHERE (username=:user AND pwd=:old_password)");
-    qry.bindValue(":user",user);
-    qry.bindValue(":old_password",old_mdp);
-    qry.bindValue(":new_password",new_mdp);
 
-    return qry.exec();
+bool Account::checkEmp(QString ui)
+{
+
+
+      QString query = "SELECT * FROM account WHERE ui = :ui";
+      QSqlQuery q;
+      q.prepare(query);
+      q.bindValue(":ui", ui);
+      return  q.exec();
+
+
 }
-bool Account::update_mpd_reset(QString uname,QString code)
-{
-    QSqlQuery qry;
-    qry.prepare("UPDATE ACCOUNT SET pwd_reset=:pwd_reset WHERE (username=:username)");
-    qry.bindValue(":username",uname);
-    qry.bindValue(":pwd_reset",code);
-
-    return qry.exec();
-}*/

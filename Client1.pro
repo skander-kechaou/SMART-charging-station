@@ -3,9 +3,10 @@ QT       += sql
 QT       += printsupport
 QT       += charts
 QT       += serialport
-QT       += multimedia
-QT       += network network-private
+QT       += multimedia multimediawidgets
+QT       += network
 QT       += core gui network
+QT       += axcontainer
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -37,23 +38,59 @@ SOURCES += \
     connection.cpp \
     history.cpp \
     main.cpp \
-    mainwindow.cpp \
+    # mainwindow.cpp \
+    management.cpp \
     qrcode.cpp \
     qrcodegenerator.cpp \
     qrwidget.cpp \
+    car.cpp \
+    exportexcelobject.cpp \
+    image.cpp \
+    chat.cpp \
+    Account.cpp \
+    employee.cpp \
+    sign_up.cpp \
+    login.cpp \
+    station.cpp \
+    map.cpp \
+    invoice.cpp \
+    calculatrice.cpp \
+    smtp.cpp
 
 HEADERS += \
     arduino.h \
     client.h \
     connection.h \
     history.h \
-    mainwindow.h \
+    # mainwindow.h \
+    management.h \
     qrcode.h \
     qrcodegenerator.h \
     qrwidget.h \
+    car.h \
+    exportexcelobject.h \
+    image.h \
+    chat.h \
+    Account.h \
+    employee.h \
+    sign_up.h \
+    login.h \
+    station.h \
+    map.h \
+    invoice.h \
+    calculatrice.h \
+    smtp.h
 
 FORMS += \
-    mainwindow.ui
+    # mainwindow.ui \
+    login.ui \
+    management.ui \
+    sign_up.ui \
+    chat.ui \
+    map.ui \
+    calculatrice.ui
+
+QMAKE_CXXFLAGS += -std=gnu++14
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

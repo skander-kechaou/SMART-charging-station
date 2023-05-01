@@ -1,8 +1,9 @@
-#include "mainwindow.h"
+#include "login.h"
 #include <QApplication>
 #include <QMessageBox>
 #include "connection.h"
 #include <QSslSocket>
+#include "management.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,7 +13,7 @@ int main(int argc, char *argv[])
     connection c;
     QString opensslVersionString = QSslSocket::sslLibraryBuildVersionString();
     qDebug() << "OpenSSL version: " << opensslVersionString;        bool test=c.createconnect();
-        MainWindow w;
+        Login w;
         if(test)
         {w.show();
             QMessageBox::information(nullptr, QObject::tr("database is open"),

@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "client.h"
+#include "car.h"
+#include "exportexcelobject.h"
 #include <QtCharts>
 #include <QChartView>
 #include <QBarSeries>
@@ -21,6 +23,8 @@ public:
     ~MainWindow();
 
 private slots:
+
+    //##########################################CLIENT MANAGEMENT##############################################
     void on_addButton_clicked();
 
     void on_deleteButton_clicked();
@@ -51,11 +55,37 @@ private slots:
 
     void update_data(QByteArray data);
 
+    //##########################################CAR MANAGEMENT##############################################
+    void on_CaraddButton_clicked();
+
+    void on_CardeleteButton_clicked();
+
+    void on_CartableView_clicked(const QModelIndex &index);
+
+    void on_CarEditButton_clicked();
+
+    void on_CarsortButton_clicked();
+
+    void on_CarsearchButton_clicked();
+
+    void on_CarpdfButton_clicked();
+
+    void update_label();
+
+    void on_CarxlsButton_clicked();
+
+    void on_CarimageButton_clicked();
+
+    void on_CarDisplayButton_clicked();
+
+    void display();
+
 private:
     Ui::MainWindow *ui;
     client Etmp;
+    car Ctmp;
     QByteArray data, final, finalC; // variable containing the received data
     QString nicKey;
-    arduino a; // temporary object
+    arduino a,A; // temporary object
 };
 #endif // MAINWINDOW_H

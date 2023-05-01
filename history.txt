@@ -48,3 +48,15 @@
  User : 11228855 Karim Kechaou kiki.kechaou@test.tn 58293645 0 🔄 UPDATED on Tuesday 11 April 2023 10:24:45.592
 
  User : 11228855 Karim Kechaou kiki.kechaou@test.tn 58293645 100 🔄 UPDATED on Tuesday 11 April 2023 10:29:20.868
+
+ User : 12345 Youssef Ressaissi youssef.ressaissi@esprit.tn 99662233 400 🔄 UPDATED on Friday 28 April 2023 13:08:48.863
+
+ User : 14517134 Aziz Bchir aziz.bchir@esprit.tn 12345678 300 🔄 UPDATED on Friday 28 April 2023 17:01:26.740
+
+ User : 12369584 Youssef Ouakaa youssef.ouakaa@gmail.com 98653248 300 ✔️ ADDED on Monday 01 May 2023 17:52:36.302
+
+ User : 12369584 Youssef Ouakaa youssef.ouakaa@gmail.com 98653248 200 🔄 UPDATED on Monday 01 May 2023 17:53:36.908
+
+ User : 12369584 Youssef Ouakaa youssef.ouakaa@gmail.com 98653248 100 🔄 UPDATED on Monday 01 May 2023 21:26:08.847
+
+ User : 11228855 Karim Kechaou kiki.kechaou@test.tn 58293645 100 🔄 UPDATED on Monday 01 May 2023 21:26:30.374

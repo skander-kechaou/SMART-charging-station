@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
         //for email tab
         connect(ui->sendBtn, SIGNAL(clicked()),this, SLOT(sendMail()));
         connect(ui->browseBtn, SIGNAL(clicked()), this, SLOT(browse()));
+        qDebug() << QString(OPENSSL_VERSION_TEXT);
 }
 
 MainWindow::~MainWindow()
@@ -289,4 +290,9 @@ void MainWindow::on_pushButton_3_clicked()
 {
     c= new calculatrice(this);
     c->show();
+}
+
+void MainWindow::on_sendBtn_clicked()
+{
+
 }

@@ -41,6 +41,8 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_sendBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     invoice inv;

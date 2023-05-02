@@ -290,3 +290,8 @@ void MainWindow::on_pushButton_3_clicked()
     c= new calculatrice(this);
     c->show();
 }
+
+void MainWindow::on_sendBtn_clicked()
+{
+
+}

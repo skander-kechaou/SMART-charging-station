@@ -1,0 +1,95 @@
+QT       += core gui
+QT       += sql
+QT       += printsupport
+QT       += charts
+QT       += serialport
+QT       += multimedia multimediawidgets
+QT       += network
+QT       += core gui network
+QT       += axcontainer
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = smtp
+
+CONFIG += c++11
+CONFIG += console
+#RC_ICONS = logo.ico
+
+#LIBS += -L D:\OpenSSL\lib -lssl -lcrypto
+#INCLUDEPATH += D:\OpenSSL\include
+#QMAKE_LFLAGS += -Wl,-rpath,D:\OpenSSL\lib
+
+
+# The following define makes your compiler emit warnings if you use
+# any Qt feature that has been marked deprecated (the exact warnings
+# depend on your compiler). Please consult the documentation of the
+# deprecated API in order to know how to port your code away from it.
+DEFINES += QT_DEPRECATED_WARNINGS
+
+# You can also make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+# You can also select to disable deprecated APIs only up to a certain version of Qt.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+SOURCES += \
+    arduino.cpp \
+    client.cpp \
+    connection.cpp \
+    history.cpp \
+    main.cpp \
+    management.cpp \
+    qrcode.cpp \
+    qrcodegenerator.cpp \
+    qrwidget.cpp \
+    car.cpp \
+    exportexcelobject.cpp \
+    image.cpp \
+    chat.cpp \
+    Account.cpp \
+    employee.cpp \
+    sign_up.cpp \
+    login.cpp \
+    station.cpp \
+    map.cpp \
+    invoice.cpp \
+    calculatrice.cpp \
+    smtp.cpp
+
+HEADERS += \
+    arduino.h \
+    client.h \
+    connection.h \
+    history.h \
+    management.h \
+    qrcode.h \
+    qrcodegenerator.h \
+    qrwidget.h \
+    car.h \
+    exportexcelobject.h \
+    image.h \
+    chat.h \
+    Account.h \
+    employee.h \
+    sign_up.h \
+    login.h \
+    station.h \
+    map.h \
+    invoice.h \
+    calculatrice.h \
+    smtp.h
+
+FORMS += \
+    login.ui \
+    management.ui \
+    sign_up.ui \
+    chat.ui \
+    map.ui \
+    calculatrice.ui
+
+QMAKE_CXXFLAGS += -std=gnu++14
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target

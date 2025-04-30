@@ -19,17 +19,13 @@ VoltVault is a comprehensive desktop application designed to manage and streamli
 *   [Hardware Integration (Arduino)](#hardware-integration-arduino)
 *   [Technology Stack (Inferred)](#technology-stack-inferred)
 *   [Design](#design)
-*   [Screenshots](#screenshots)
 *   [Getting Started](#getting-started)
     *   [Prerequisites](#prerequisites)
     *   [Installation](#installation)
     *   [Running the Application](#running-the-application)
 *   [Usage](#usage)
 *   [Future Perspectives](#future-perspectives)
-*   [Contributing](#contributing)
-*   [License](#license)
 *   [Team](#team)
-*   [Contact](#contact)
 *   [Acknowledgments](#acknowledgments)
 
 ---
@@ -152,20 +148,6 @@ The system integrates with Arduino microcontroller boards to interact with the p
 
 ---
 
-## Screenshots
-
-*(Ideally, link to or embed key screenshots here, such as)*
-
-*   Login Form
-*   Sign-up Form
-*   Employee Management Dashboard
-*   Client Management Dashboard (showing QR code)
-*   Car Management View
-*   Station Management View (with Map)
-*   Invoice/Calculator Interface
-
----
-
 ## Getting Started
 
 *(Provide instructions on how to set up and run the project. Below are placeholders.)*
@@ -220,24 +202,6 @@ We are committed to continuously improving and expanding the VoltVault project. 
 
 ---
 
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
-
----
-
-## License
-
-Distributed under the MIT License. See `LICENSE` file for more information.
-
----
-
 ## Team (N.A.N.S.Y)
 
 *   **N**ada Latrach
@@ -245,14 +209,6 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 *   **N**oura Jaziri
 *   **S**kander Kechaou
 *   **Y**oussef Ressaissi
-
----
-
-## Contact
-
-Project Link: [https://github.com/your-username/voltvault](https://github.com/your-username/voltvault) <!-- Replace with actual link -->
-Email: nansy@gmail.com
-Website: nansy.com <!-- Replace with actual project website if available -->
 
 ---
 

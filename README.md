@@ -2,9 +2,6 @@
 
 **Charge up, for a greener future**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Placeholder license badge -->
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](.) <!-- Placeholder build status badge -->
-
 VoltVault is a comprehensive desktop application designed to manage and streamline operations for electric vehicle (EV) charging stations. It aims to provide a seamless experience for both customers and station operators, addressing common issues found in traditional fueling and existing EV charging solutions.
 
 ---

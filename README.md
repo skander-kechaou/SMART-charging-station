@@ -162,11 +162,11 @@ The system integrates with Arduino microcontroller boards to interact with the p
 
 1.  Clone the repo:
     ```sh
-    git clone https://github.com/your-username/voltvault.git
+    git clone https://github.com/skander-kechaou/SMART-charging-station.git
     ```
 2.  Navigate to the project directory:
     ```sh
-    cd voltvault
+    cd SMART-charging-station
     ```
 3.  Configure the database connection (provide details).
 4.  Open the project `.pro` file in Qt Creator.
@@ -174,7 +174,7 @@ The system integrates with Arduino microcontroller boards to interact with the p
 
 ### Running the Application
 
-1.  Build the project in Qt Creator (Build > Build Project "VoltVault").
+1.  Build the project in Qt Creator (Build > Build Project "SMART-charging-station").
 2.  Run the application from Qt Creator (Build > Run).
 3.  Ensure the Arduino devices are connected via USB and recognized by the system.
 

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Sign_up</class>
+ <widget class="QWidget" name="Sign_up">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1095</width>
+    <height>677</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+
+font-family:century gothic;
+font-size:24px;
+}
+QFrame
+{
+background:#333;
+border-radius:15px;
+
+
+}
+
+QPushButton
+{
+background:#49ebff;
+border-radius:50px;
+
+}
+QToolButton
+{
+	
+	border-image: url(:/images/C:/Users/nadal/Downloads/emp1-removebg-preview.png);
+border-radius:60px;
+
+}
+QLabel
+{
+color:white;
+
+}
+QPushButton
+{
+color:white;
+border-radius:15px;
+
+}
+QPushButton:hover
+{
+
+color:white;
+border-radius:15px;
+background:red;
+
+}
+QLineEdit
+{
+background:transparent;
+border:none;
+color:white;
+border-bottom:1px solid #717072;
+
+}
+</string>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>247</x>
+     <y>68</y>
+     <width>601</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>70</y>
+      <width>161</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>SIGN UP HERE</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="signup">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>460</y>
+      <width>191</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Image </string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="name">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>160</y>
+      <width>250</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Name</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="pwd">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>220</y>
+      <width>250</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Password</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="role">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>400</y>
+      <width>250</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Role</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="confirm">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>280</y>
+      <width>250</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Confirm password</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>10</y>
+      <width>251</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+
+	background-color: none;
+
+
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="idemp">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>340</y>
+      <width>250</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>ID</string>
+    </property>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>190</y>
+      <width>251</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget
+
+{
+background:#333333;
+border-radius:15px;
+border-color: rgb(255, 255, 255);
+}</string>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>251</width>
+       <height>241</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="cam">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>120</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+background:#D3D3D3;
+border-radius:50px;
+
+}</string>
+    </property>
+    <property name="text">
+     <string>Camera</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>-230</x>
+     <y>-130</y>
+     <width>1371</width>
+     <height>811</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>IMG/car.png</pixmap>
+   </property>
+  </widget>
+  <zorder>label_3</zorder>
+  <zorder>frame</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
